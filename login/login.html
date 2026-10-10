@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Masuk – Platform Media Pembelajaran</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <main class="page">
+    <!-- Brand Identity -->
+    <header class="brand">
+      <img class="brand__lamp" src="lampu1.png" alt="" width="65" height="85" />
+      <h1 class="brand__title">Selamat Datang Kembali</h1>
+      <p class="brand__tagline">Platform Media Pembelajaran lengkap, UMKM Sejahtera.</p>
+    </header>
+
+    <!-- Login Form Card -->
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title" class="visually-hidden">Form masuk</h2>
+
+      <form id="loginForm" class="form" novalidate>
+        <!-- Email -->
+        <div class="field">
+          <label class="field__label" for="email">Email</label>
+          <div class="field__control">
+            <img class="field__icon" src="" alt="" width="20" height="16" /> <!-- TODO: isi src ikon email, mis. images/email.png -->
+            <input
+              class="field__input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="nama@email.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <p class="field__error" id="emailError" role="alert"></p>
+        </div>
+
+        <!-- Kata Sandi -->
+        <div class="field">
+          <div class="field__row">
+            <label class="field__label" for="password">Kata Sandi</label>
+            <a class="field__link" href="#" id="forgotLink">Lupa Kata Sandi?</a>
+          </div>
+          <div class="field__control">
+            <img class="field__icon field__icon--lock" src="" alt="" width="16" height="21" /> <!-- TODO: isi src ikon gembok, mis. images/lock.png -->
+            <input
+              class="field__input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <p class="field__error" id="passwordError" role="alert"></p>
+        </div>
+
+        <!-- Button - Sign In CTA -->
+        <button class="btn btn--primary" type="submit">Masuk</button>
+
+        <!-- Divider -->
+        <div class="divider"><span>Atau</span></div>
+
+        <!-- Button - Social Login -->
+        <!-- TODO: isi href dengan URL login Google, dan src dengan gambar logo Google -->
+        <a class="btn btn--social" href="#" id="googleBtn">
+          <img src="" alt="" width="20" height="20" />
+          <span>Lanjutkan dengan Google</span>
+        </a>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <p class="signup">
+      Belum punya akun?
+      <a href="#" id="signupLink">Daftar</a>
+    </p>
+  </main>
+
+  <div class="bottom-bar" aria-hidden="true"></div>
+
+  <script src="login.js"></script>
+</body>
+</html>

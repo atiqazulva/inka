@@ -1,0 +1,346 @@
+/* ===== Design tokens ===== */
+:root {
+  --brown: #44330f;
+  --brown-60: rgba(68, 51, 15, 0.6);
+  --brown-50: rgba(68, 51, 15, 0.5);
+  --green: #006a42;
+  --input-bg: rgba(244, 190, 78, 0.5);
+  --white: #ffffff;
+  --error: #b3261e;
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--brown);
+  background: linear-gradient(270.16deg, #ffffff 0.21%, #dcc8a0 99.94%);
+  background-attachment: fixed;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== Layout ===== */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 72px 24px 48px;
+  flex: 1 0 auto;
+}
+
+/* ===== Brand Identity ===== */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 954px;
+  margin-bottom: 48px;
+}
+
+.brand__lamp {
+  width: 65px;
+  height: 85px;
+  object-fit: contain;
+}
+
+.brand__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(36px, 6vw, 75px);
+  line-height: 1.33;
+  background: linear-gradient(90deg, #2b1f07 0%, #604510 50%, #ab7300 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.brand__tagline {
+  margin: 8px 0 0;
+  font-weight: 600;
+  font-size: clamp(18px, 2.2vw, 30px);
+  line-height: 1.2;
+  color: var(--brown);
+}
+
+/* ===== Login Form Card ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 1196px;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--brown);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(17, 30, 24, 0.04);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ===== Fields ===== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0 4px;
+}
+
+.field__label {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--brown);
+}
+
+.field > .field__label {
+  padding: 0 1px;
+}
+
+.field__link {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.36px;
+  color: var(--brown);
+  text-decoration: none;
+}
+
+.field__link:hover {
+  text-decoration: underline;
+}
+
+.field__control {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.field__input {
+  width: 100%;
+  height: 65px;
+  padding: 20px 16px 14px 48px;
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--brown);
+  background: var(--input-bg);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.field__input::placeholder {
+  color: var(--brown-50);
+}
+
+.field__input:focus-visible {
+  border-color: var(--brown);
+  background: rgba(244, 190, 78, 0.65);
+}
+
+.field__input[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.field__icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.field__icon--lock {
+  left: 20px;
+}
+
+.field__error {
+  min-height: 0;
+  margin: 0;
+  padding: 0 4px;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--error);
+}
+
+.field__error:empty {
+  display: none;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 65px;
+  padding: 16px 0;
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--brown);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  color: var(--white);
+  background: var(--green);
+  border: 0;
+  box-shadow: 0 8px 24px rgba(0, 106, 66, 0.12);
+}
+
+.btn--primary:hover {
+  background: #005837;
+}
+
+.btn--primary:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.btn--social {
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--brown);
+  background: transparent;
+  border: 1px solid rgba(189, 202, 191, 0.5);
+}
+
+.btn--social:hover {
+  background: rgba(220, 200, 160, 0.2);
+}
+
+/* ===== Divider ===== */
+.divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 16px;
+}
+
+.divider span {
+  width: 100%;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--brown-60);
+}
+
+/* ===== Footer ===== */
+.signup {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 48px 0 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--brown);
+}
+
+.signup a {
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+
+.bottom-bar {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 82px; /* 1024 - 942 pada frame desain */
+  background: var(--brown);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .page {
+    padding: 40px 16px 32px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .field__label,
+  .btn {
+    font-size: 17px;
+  }
+
+  .field__link {
+    font-size: 14px;
+  }
+
+  .signup {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
