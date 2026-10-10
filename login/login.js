@@ -7,7 +7,6 @@ const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const googleBtn = document.getElementById("googleBtn");
 const forgotLink = document.getElementById("forgotLink");
-const signupLink = document.getElementById("signupLink");
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -97,9 +96,4 @@ googleBtn.addEventListener("click", (event) => {
 forgotLink.addEventListener("click", (event) => {
   event.preventDefault();
   // window.location.href = "lupa-sandi.html";
-});
-
-signupLink.addEventListener("click", (event) => {
-  event.preventDefault();
-  // window.location.href = "daftar.html";
 });
