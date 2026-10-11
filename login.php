@@ -1,3 +1,38 @@
+<?php
+// ===== BAGIAN PHP (penjaga) =====
+session_start();
+require 'config/db.php';
+
+// Kalau sudah punya "gelang" (session), langsung ke dashboard
+if (isset($_SESSION['user_id'])) {
+    header('Location: dashboard.php');
+    exit;
+}
+
+$error = '';
+$email = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    // Cari email di buku daftar
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Cocokkan sandi (yang tersimpan sudah diacak)
+    if ($user && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        header('Location: dashboard.php');
+        exit;
+    }
+
+    $error = 'Email atau kata sandi salah.';
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -24,17 +59,18 @@
     <section class="card" aria-labelledby="form-title">
       <h2 id="form-title" class="visually-hidden">Form masuk</h2>
 
-      <form id="loginForm" class="form" novalidate>
+      <form id="loginForm" class="form" method="POST" action="login.php" novalidate>
         <!-- Email -->
         <div class="field">
           <label class="field__label" for="email">Email</label>
           <div class="field__control">
-            <img class="field__icon" src="public/email.png" alt="" width="20" height="16" /> 
+            <img class="field__icon" src="public/email.png" alt="" width="20" height="16" />
             <input
               class="field__input"
               type="email"
               id="email"
               name="email"
+              value="<?= htmlspecialchars($email) ?>"
               placeholder="nama@email.com"
               autocomplete="email"
               required
@@ -50,7 +86,7 @@
             <a class="field__link" href="#" id="forgotLink">Lupa Kata Sandi?</a>
           </div>
           <div class="field__control">
-            <img class="field__icon field__icon--lock" src="public/kunci.png" alt="" width="16" height="21" /> <!-- TODO: isi src ikon gembok, mis. images/lock.png -->
+            <img class="field__icon field__icon--lock" src="public/kunci.png" alt="" width="16" height="21" />
             <input
               class="field__input"
               type="password"
@@ -58,10 +94,12 @@
               name="password"
               placeholder="••••••••"
               autocomplete="current-password"
+              <?= $error ? 'aria-invalid="true"' : '' ?>
               required
             />
           </div>
-          <p class="field__error" id="passwordError" role="alert"></p>
+          <!-- Pesan error dari PHP muncul di sini -->
+          <p class="field__error" id="passwordError" role="alert"><?= htmlspecialchars($error) ?></p>
         </div>
 
         <!-- Button - Sign In CTA -->
@@ -81,7 +119,7 @@
     <!-- Footer -->
     <p class="signup">
       Belum punya akun?
-      <a href="register.html" id="signupLink">Daftar</a>
+      <a href="register.php" id="signupLink">Daftar</a>
     </p>
   </main>
 
