@@ -1,11 +1,18 @@
+<?php
+// Cek "gelang" (session). Kalau tidak punya, kembali ke login.
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>INKA</title>
-  
-  <link rel="stylesheet" href="style.css">
+  <!-- style.css dan script.js belum ada, jadi link-nya dihapus dulu -->
 </head>
 <body>
 
@@ -15,22 +22,21 @@
       <ul>
         <li><a href="#dashboard">Dashboard</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#footert">Footer</a></li>
+        <li><a href="logout.php">Keluar</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <section id="dashboard">
-      <h2>This is INKA bro!</h2>
+      <h2>Halo, <?= htmlspecialchars($_SESSION['name']) ?>!</h2>
       <p>Ini deskripsi inka isinya nanti dulu.</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Kelomopok 03 PEMWEB. All rights reserved.</p>
-   </footer>
-  
-  <script src="script.js"></script>
+    <p>&copy; 2026 Kelompok 03 PEMWEB. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
