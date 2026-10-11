@@ -59,45 +59,21 @@ Object.values(fields).forEach((field) => {
   field.input.addEventListener("change", live);
 });
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
+form.addEventListener("submit", (event) => {
   let firstInvalid = null;
   Object.values(fields).forEach((field) => {
     if (!check(field) && !firstInvalid) firstInvalid = field.input;
   });
+
+  // Kalau ada isian yang salah, batalkan pengiriman ke PHP
   if (firstInvalid) {
+    event.preventDefault();
     firstInvalid.focus();
     return;
   }
 
+  // Isian benar: biarkan form terkirim ke register.php
   const submitBtn = form.querySelector('button[type="submit"]');
-  const label = submitBtn.querySelector("span");
+  submitBtn.querySelector("span").textContent = "Memproses...";
   submitBtn.disabled = true;
-  label.textContent = "Memproses...";
-
-  try {
-    const payload = {
-      name: fields.name.input.value.trim(),
-      email: fields.email.input.value.trim(),
-      password: fields.password.input.value,
-      sector: fields.sector.input.value,
-    };
-
-    // TODO: ganti dengan request ke backend, misalnya:
-    // const res = await fetch("/api/register", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(payload),
-    // });
-    // if (!res.ok) throw new Error("Pendaftaran gagal, coba lagi.");
-    await new Promise((resolve) => setTimeout(resolve, 800)); // simulasi
-    console.log("Pendaftaran berhasil untuk:", payload.email);
-    // window.location.href = "index.html";
-  } catch (err) {
-    fields.email.error.textContent = err.message || "Terjadi kesalahan, coba lagi.";
-  } finally {
-    submitBtn.disabled = false;
-    label.textContent = "Buat Akun";
-  }
 });

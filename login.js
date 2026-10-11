@@ -52,40 +52,25 @@ passwordInput.addEventListener("blur", validatePassword);
 emailInput.addEventListener("input", () => emailInput.hasAttribute("aria-invalid") && validateEmail());
 passwordInput.addEventListener("input", () => passwordInput.hasAttribute("aria-invalid") && validatePassword());
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
+form.addEventListener("submit", (event) => {
   const emailOk = validateEmail();
   const passwordOk = validatePassword();
+
+  // Kalau isian belum benar, batalkan pengiriman ke PHP
   if (!emailOk || !passwordOk) {
+    event.preventDefault();
     (emailOk ? passwordInput : emailInput).focus();
     return;
   }
 
+  // Isian benar: biarkan form terkirim ke login.php.
+  // Tombol dinonaktifkan supaya tidak diklik dua kali.
   const submitBtn = form.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
   submitBtn.textContent = "Memproses...";
-
-  try {
-    // TODO: ganti dengan request ke backend, misalnya:
-    // const res = await fetch("/api/login", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ email: emailInput.value.trim(), password: passwordInput.value }),
-    // });
-    // if (!res.ok) throw new Error("Email atau kata sandi salah.");
-    await new Promise((resolve) => setTimeout(resolve, 800)); // simulasi
-    console.log("Login berhasil untuk:", emailInput.value.trim());
-    // window.location.href = "dashboard.html";
-  } catch (err) {
-    setError(passwordInput, passwordError, err.message || "Terjadi kesalahan, coba lagi.");
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Masuk";
-  }
 });
 
-// Tombol Google berupa link: isi href di index.html dengan URL tujuan.
+// Tombol Google berupa link: isi href dengan URL tujuan.
 // Selama href masih "#", klik diabaikan.
 googleBtn.addEventListener("click", (event) => {
   if (googleBtn.getAttribute("href") === "#") {
@@ -95,5 +80,5 @@ googleBtn.addEventListener("click", (event) => {
 
 forgotLink.addEventListener("click", (event) => {
   event.preventDefault();
-  // window.location.href = "lupa-sandi.html";
+  // window.location.href = "lupa-sandi.php";
 });
